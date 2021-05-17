@@ -3,8 +3,11 @@ import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.118/examples/j
 
 import {FBXLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/FBXLoader.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/loaders/GLTFLoader.js';
-
-
+import { OBJLoader } from './three.js-master/examples/jsm/loaders/OBJLoader.js';
+import { MTLLoader } from './three.js-master/examples/jsm/loaders/MTLLoader.js';
+import { DDSLoader } from './three.js-master/examples/jsm/loaders/DDSLoader.js';
+import { RectAreaLightHelper } from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/helpers/RectAreaLightHelper.js';
+import { RectAreaLightUniformsLib } from 'https://cdn.jsdelivr.net/npm/three@0.118.1/examples/jsm/lights/RectAreaLightUniformsLib.js';
 
 //SCENE
 let scene = new THREE.Scene();
@@ -19,7 +22,7 @@ renderer.setSize(window.innerWidth,window.innerHeight);
 renderer.setPixelRatio( window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
 // renderer.gammaFactor = 1;
-renderer.outputEncoding = THREE.sRGBEncoding;
+// renderer.outputEncoding = THREE.sRGBEncoding;
 document.body.appendChild(renderer.domElement);
 
 //CAMERA
@@ -130,13 +133,13 @@ scene.add(plane);
 
 // path 
 var curveObj = new THREE.CatmullRomCurve3([
-    new THREE.Vector3(0, 0, -10),
-    new THREE.Vector3(-10, 0, 0),
-    new THREE.Vector3(-5, 0, 10),
-    new THREE.Vector3(-2.5, 0, 5),
-    new THREE.Vector3(0, 0, 10),
-    new THREE.Vector3(5, 0, 12),
-    new THREE.Vector3(7, 0, -7)
+  new THREE.Vector3(0, 0, -10),
+  new THREE.Vector3(-10, 0, 0),
+  new THREE.Vector3(-5, 0, 10),
+  new THREE.Vector3(-2.5, 0, 5),
+  new THREE.Vector3(0, 0, 10),
+  new THREE.Vector3(5, 0, 12),
+  new THREE.Vector3(7, 0, -7)
   ]);
   curveObj.closed = true;
   var curveGeom = new THREE.BufferGeometry().setFromPoints(curveObj.getPoints(200));
@@ -147,14 +150,14 @@ var curveObj = new THREE.CatmullRomCurve3([
 
 // light holder
 var carProfileShape = new THREE.Shape([
-    new THREE.Vector2(1, 0),
-    new THREE.Vector2(1, 0.25),
-    new THREE.Vector2(0.65, 0.25),
-    new THREE.Vector2(0.35, 0.5),
-    new THREE.Vector2(-0.25, 0.5),
-    new THREE.Vector2(-0.95, 0.25),
-    new THREE.Vector2(-1, 0.25),
-    new THREE.Vector2(-1, 0)
+  new THREE.Vector2(1, 0),
+  new THREE.Vector2(1, 0.25),
+  new THREE.Vector2(0.65, 0.25),
+  new THREE.Vector2(0.35, 0.5),
+  new THREE.Vector2(-0.25, 0.5),
+  new THREE.Vector2(-0.95, 0.25),
+  new THREE.Vector2(-1, 0.25),
+  new THREE.Vector2(-1, 0)
   ]);
   var carProfileGeometry = new THREE.ExtrudeBufferGeometry(carProfileShape, {depth: 1, bevelEnabled: false});
   carProfileGeometry.translate(0, 0, -0.5);
@@ -187,14 +190,10 @@ var carProfileShape = new THREE.Shape([
 //RENDERING
 var render = function()
 {
-    t = clock.getElapsedTime() * 0.1;
-  
-    lightHolder.position.copy(curveObj.getPointAt( t % 1));
-    lightHolder.lookAt(curveObj.getPointAt((t + 0.01) % 1));
-    requestAnimationFrame(render);
-    renderer.render(scene, camera);
-    
+  t = clock.getElapsedTime() * 0.1;  
+  lightHolder.position.copy(curveObj.getPointAt( t % 1));
+  lightHolder.lookAt(curveObj.getPointAt((t + 0.01) % 1));
+  requestAnimationFrame(render);
+  renderer.render(scene, camera);    
 };
 render();
-
-
