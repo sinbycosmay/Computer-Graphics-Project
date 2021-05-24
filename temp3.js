@@ -33,6 +33,7 @@ const animGroups = [];
 const car_f =[];
 const car_r =[];
 const building =[];
+const streetlights = [];
 
 const characters = [];
 let nCharacters = 0;
@@ -55,7 +56,7 @@ init();
 animate();
 
 
-async function initSky()
+ function initSky()
 {
     // Add Sky
     sky = new Sky();
@@ -76,7 +77,7 @@ async function initSky()
         exposure: 0.25
     };
 
-    async function guiChanged()
+     function guiChanged()
     {
         const uniforms = sky.material.uniforms;
         uniforms['turbidity'].value = effectController.turbidity;
@@ -103,7 +104,7 @@ async function initSky()
 }
 
 
-async function init()
+ function init()
 {
     const container = document.createElement( 'div' );
     document.body.appendChild( container );
@@ -197,7 +198,7 @@ async function init()
     // console.log(scene.children)
 }
 
-async function createScene( )
+ function createScene( )
 {
     
     add_ground();
@@ -230,7 +231,7 @@ async function createScene( )
     
 }
 
-async function draw_building(num)
+ function draw_building(num)
 {
     for(let i=0;i<num;i++)
     {
@@ -246,7 +247,7 @@ async function draw_building(num)
 
 }
 
-async function add_ground()
+ function add_ground()
 {
     const road_texture = new THREE.TextureLoader().load('/resources/road/road1.jpg');
     road_texture.anisotropy = 32
@@ -267,7 +268,7 @@ async function add_ground()
     scene.add(ground);    
 }
 
-async function add_light_house(pos_x,pos_y,pos_z)
+ function add_light_house(pos_x,pos_y,pos_z)
 {
     //Tower
     const tower_texture = new THREE.TextureLoader().load('/resources/light_house/texture1.jpg');
@@ -327,7 +328,7 @@ async function add_light_house(pos_x,pos_y,pos_z)
     followLight.attach( point_light );  
 }
 
-async function add_street_light(pos_x,pos_y,pos_z)
+ function add_street_light(pos_x,pos_y,pos_z)
 {
     const tower_texture = new THREE.TextureLoader().load('/resources/lamp/text.jpg');
     tower_texture.anisotropy = 32
@@ -336,11 +337,11 @@ async function add_street_light(pos_x,pos_y,pos_z)
     tower_texture.repeat.set(1000, 1000);
     const towerMaterial = new THREE.MeshStandardMaterial({ map: tower_texture});
     let fbxloader = new OBJLoader();
-    fbxloader.load('/resources/lamp/street_lamp.obj', async function (object) {
+    fbxloader.load('/resources/lamp/street_lamp.obj',  function (object) {
         object.scale.multiplyScalar(2.5);
         object.position.set(pos_x,pos_y,pos_z);
         object.rotation.y = THREE.Math.degToRad(-90);
-        object.traverse( async function ( node )
+        object.traverse(  function ( node )
         {
             if ( node.isMesh ) node.material = towerMaterial;
         }); 
@@ -353,10 +354,11 @@ async function add_street_light(pos_x,pos_y,pos_z)
         carlight.target = lightTarget;
         object.attach(carlight);
         object.attach(lightTarget);
+        streetlights.push(carlight);
     })
 }
 
-async function add_building_1(pos_x,pos_y,pos_z)
+ function add_building_1(pos_x,pos_y,pos_z)
 {
     let tower_texture1;
     if(texture_type==1)
@@ -376,12 +378,12 @@ async function add_building_1(pos_x,pos_y,pos_z)
     const towerMaterial1 = new THREE.MeshBasicMaterial({ map: tower_texture1});
     towerMaterial1.needsUpdate=true;
     let loader = new OBJLoader();
-    loader.load('/resources/apt/Building.obj', async function (object)
+    loader.load('/resources/apt/Building.obj',  function (object)
     {
         object.scale.multiplyScalar(0.1);
         object.position.set(pos_x,pos_y,pos_z);
         object.rotation.y = THREE.Math.degToRad(90);
-        object.traverse( async function ( node ) {
+        object.traverse(  function ( node ) {
 
             if ( node.isMesh ) node.material = towerMaterial1;
         
@@ -392,7 +394,7 @@ async function add_building_1(pos_x,pos_y,pos_z)
 }
 
 
-async function add_building_2(pos_x,pos_y,pos_z)
+ function add_building_2(pos_x,pos_y,pos_z)
 {
     let tower_texture1;
     if(texture_type==1)
@@ -413,12 +415,12 @@ async function add_building_2(pos_x,pos_y,pos_z)
     const towerMaterial1 = new THREE.MeshBasicMaterial({ map: tower_texture1});
     towerMaterial1.needsUpdate=true;
     let loader = new OBJLoader();
-    loader.load('/resources/apt/Building.obj', async function (object)
+    loader.load('/resources/apt/Building.obj',  function (object)
     {
         object.scale.multiplyScalar(0.1);
         object.position.set(pos_x,pos_y,pos_z);
         object.rotation.y = THREE.Math.degToRad(270);
-        object.traverse( async function ( node ) {
+        object.traverse(  function ( node ) {
 
             if ( node.isMesh ) node.material = towerMaterial1;
         
@@ -428,7 +430,7 @@ async function add_building_2(pos_x,pos_y,pos_z)
     })
 }
 
-async function add_car_f(body_color,detail_color,pos_x,pos_y,pos_z)
+ function add_car_f(body_color,detail_color,pos_x,pos_y,pos_z)
 {
     const bodyMaterial = new THREE.MeshPhysicalMaterial( {color: body_color, metalness: 0.6, roughness: 0.4, clearcoat: 0.05, clearcoatRoughness: 0.05} );
     const detailsMaterial = new THREE.MeshStandardMaterial( { color: detail_color, metalness: 1.0, roughness: 0.5 } );
@@ -437,7 +439,7 @@ async function add_car_f(body_color,detail_color,pos_x,pos_y,pos_z)
     dracoLoader.setDecoderPath( './three.js-master/examples/js/libs/draco/gltf/' );
     const loader = new GLTFLoader();
     loader.setDRACOLoader( dracoLoader );
-    loader.load( './three.js-master/examples/models/gltf/ferrari.glb', async function ( gltf )
+    loader.load( './three.js-master/examples/models/gltf/ferrari.glb',  function ( gltf )
     {
         const carModel = gltf.scene.children[ 0 ];
         car_f.push(carModel);
@@ -486,7 +488,7 @@ async function add_car_f(body_color,detail_color,pos_x,pos_y,pos_z)
 }
 
 
-async function add_car_r(body_color,detail_color,pos_x,pos_y,pos_z)
+ function add_car_r(body_color,detail_color,pos_x,pos_y,pos_z)
 {
     const bodyMaterial = new THREE.MeshPhysicalMaterial( {color: body_color, metalness: 0.6, roughness: 0.4, clearcoat: 0.05, clearcoatRoughness: 0.05} );
     const detailsMaterial = new THREE.MeshStandardMaterial( { color: detail_color, metalness: 1.0, roughness: 0.5 } );
@@ -495,7 +497,7 @@ async function add_car_r(body_color,detail_color,pos_x,pos_y,pos_z)
     dracoLoader.setDecoderPath( './three.js-master/examples/js/libs/draco/gltf/' );
     const loader = new GLTFLoader();
     loader.setDRACOLoader( dracoLoader );
-    loader.load( './three.js-master/examples/models/gltf/ferrari.glb', async function ( gltf )
+    loader.load( './three.js-master/examples/models/gltf/ferrari.glb',  function ( gltf )
     {
         const carModel = gltf.scene.children[ 0 ];
         car_r.push(carModel);
@@ -536,7 +538,7 @@ async function add_car_r(body_color,detail_color,pos_x,pos_y,pos_z)
     });
 }
 
-async function add_birds(pos_x,pos_y,pos_z)
+ function add_birds(pos_x,pos_y,pos_z)
 {
     mixer = new THREE.AnimationMixer( scene );
     for ( let i = 0; i !== ANIMATION_GROUPS; ++ i )
@@ -545,7 +547,7 @@ async function add_birds(pos_x,pos_y,pos_z)
         animGroups.push( group );
     }
     
-    async function addMorph( mesh, clip, speed, duration, x, y, z, fudgeColor, massOptimization )
+     function addMorph( mesh, clip, speed, duration, x, y, z, fudgeColor, massOptimization )
     {
         mesh = mesh.clone();
         mesh.material = mesh.material.clone();
@@ -582,7 +584,7 @@ async function add_birds(pos_x,pos_y,pos_z)
     }
 
     const gltfLoader = new GLTFLoader();
-    gltfLoader.load( "./three.js-master/examples/models/gltf/Flamingo.glb", async function ( gltf )
+    gltfLoader.load( "./three.js-master/examples/models/gltf/Flamingo.glb",  function ( gltf )
     {
         const mesh = gltf.scene.children[0];
         const clip = gltf.animations[0];
@@ -593,7 +595,7 @@ async function add_birds(pos_x,pos_y,pos_z)
         }
     });
 
-    gltfLoader.load( "./three.js-master/examples/models/gltf/Parrot.glb", async function ( gltf )
+    gltfLoader.load( "./three.js-master/examples/models/gltf/Parrot.glb",  function ( gltf )
     {
         const mesh = gltf.scene.children[0];
         const clip = gltf.animations[0];
@@ -605,7 +607,7 @@ async function add_birds(pos_x,pos_y,pos_z)
     });
 }
 
-async function add_chracter()
+ function add_chracter()
 {
     const configOgro = 
     {
@@ -646,7 +648,7 @@ async function add_chracter()
     //ading to base character
     const baseCharacter = new MD2CharacterComplex();
     baseCharacter.scale = 3;
-    baseCharacter.onLoadComplete = async function ()
+    baseCharacter.onLoadComplete =  function ()
     {
         let k=0;
         for ( let j=0; j<nRows; j++ )
@@ -658,7 +660,7 @@ async function add_chracter()
                 cloneCharacter.enableShadows( true );
                 cloneCharacter.setWeapon(0);
                 cloneCharacter.setSkin(i);
-                cloneCharacter.root.position.z = ( i - nSkins / 2 ) * 150;
+                cloneCharacter.root.position.z = ( i - nSkins / 2 ) * 150-600;
                 cloneCharacter.root.name = "Character";
                 scene.add(cloneCharacter.root);
                 k++;
@@ -671,7 +673,7 @@ async function add_chracter()
     baseCharacter.loadParts( configOgro );
 }
 
-async function onWindowResize()
+ function onWindowResize()
 {
     SCREEN_WIDTH = window.innerWidth;
     SCREEN_HEIGHT = window.innerHeight;
@@ -680,14 +682,14 @@ async function onWindowResize()
     renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
 }
 
-async function onMouseMove(event)
+ function onMouseMove(event)
 {
     mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
 	mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
 }
 
-async function onKeyDown( event )
+ function onKeyDown( event )
 {
     // console.log(event.code);
     switch ( event.code )
@@ -751,10 +753,22 @@ async function onKeyDown( event )
             }
             draw_building(10);
             break;
+        case 'KeyO':
+            for(let i = 0;i < streetlights.length;i++)
+            {
+                if(streetlights[i].visible)
+                {
+                    streetlights[i].visible = false;
+                }
+                else{
+                    streetlights[i].visible = true;
+                }
+            }
+            break;    
     }
 }
 
-async function onKeyUp( event )
+ function onKeyUp( event )
 {
     switch ( event.code )
     {
@@ -777,7 +791,7 @@ async function onKeyUp( event )
 }
 
 
-async function check_collision()
+ function check_collision()
 {
     lightTargetf.position.set(characters[0].root.position.x,0,characters[0].root.position.z);
     followLight.target = lightTargetf;
@@ -930,19 +944,19 @@ async function check_collision()
     // console.log(building.length);
 }
 
-async function car_collision_1()
+ function car_collision_1()
 {
 
 }
 
-async function car_collision_2()
+ function car_collision_2()
 {
 
 }
 
 
 
-async function camera_change()
+ function camera_change()
 {
     camera_type++;
     camera_type%=3;
@@ -975,7 +989,7 @@ async function camera_change()
     }
 }
 
-async function animate()
+ function animate()
 {
     requestAnimationFrame( animate );
     stats.begin();
@@ -984,9 +998,9 @@ async function animate()
 }
 
 
-async function render()
+ function render()
 {
-    console.log(scene.children.length);
+    // console.log(scene.children.length);
     const time = - performance.now() / 1000;
     const delta = clock.getDelta();
 
