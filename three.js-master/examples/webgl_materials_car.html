@@ -21,14 +21,14 @@
 	</head>
 
 	<body>
-		<div id="info">
-			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> car materials<br/>
-			Ferrari 458 Italia model by <a href="https://sketchfab.com/models/57bf6cc56931426e87494f554df1dab6" target="_blank" rel="noopener">vicent091036</a>
-			<br><br>
-			<span class="colorPicker"><input id="body-color" type="color" value="#ff0000"></input><br/>Body</span>
-			<span class="colorPicker"><input id="details-color" type="color" value="#ffffff"></input><br/>Details</span>
-			<span class="colorPicker"><input id="glass-color" type="color" value="#ffffff"></input><br/>Glass</span>
-		</div>
+		<!-- <div id="info"> -->
+			<!-- <!-- <a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> car materials<br/> -->
+			<!-- Ferrari 458 Italia model by <a href="https://sketchfab.com/models/57bf6cc56931426e87494f554df1dab6" target="_blank" rel="noopener">vicent091036</a> -->
+			<!-- <br><br> -->
+			<!-- <span class="colorPicker"><input id="body-color" type="color" value="#ff0000"></input><br/>Body</span> -->
+			<!-- <span class="colorPicker"><input id="details-color" type="color" value="#ffffff"></input><br/>Details</span> -->
+			<!-- <span class="colorPicker"><input id="glass-color" type="color" value="#ffffff"></input><br/>Glass</span> --> -->
+		<!-- </div> -->
 
 		<div id="container"></div>
 
@@ -52,7 +52,8 @@
 
 			const wheels = [];
 
-			function init() {
+			function init() 
+			{
 
 				const container = document.getElementById( 'container' );
 
@@ -85,7 +86,10 @@
 				scene.background = new THREE.Color( 0xeeeeee );
 				scene.environment = pmremGenerator.fromScene( new RoomEnvironment() ).texture;
 				scene.fog = new THREE.Fog( 0xeeeeee, 10, 50 );
-
+				
+				// const ambient = new THREE.AmbientLight( 'white' );
+    			// scene.add( ambient );
+				
 				grid = new THREE.GridHelper( 100, 40, 0x000000, 0x000000 );
 				grid.material.opacity = 0.1;
 				grid.material.depthWrite = false;
@@ -106,26 +110,26 @@
 					color: 0xffffff, metalness: 0, roughness: 0.1, transmission: 0.9, transparent: true
 				} );
 
-				const bodyColorInput = document.getElementById( 'body-color' );
-				bodyColorInput.addEventListener( 'input', function () {
+				// const bodyColorInput = document.getElementById( 'body-color' );
+				// bodyColorInput.addEventListener( 'input', function () {
 
-					bodyMaterial.color.set( this.value );
+				// 	bodyMaterial.color.set( this.value );
 
-				} );
+				// } );
 
-				const detailsColorInput = document.getElementById( 'details-color' );
-				detailsColorInput.addEventListener( 'input', function () {
+				// const detailsColorInput = document.getElementById( 'details-color' );
+				// detailsColorInput.addEventListener( 'input', function () {
 
-					detailsMaterial.color.set( this.value );
+				// 	detailsMaterial.color.set( this.value );
 
-				} );
+				// } );
 
-				const glassColorInput = document.getElementById( 'glass-color' );
-				glassColorInput.addEventListener( 'input', function () {
+				// const glassColorInput = document.getElementById( 'glass-color' );
+				// glassColorInput.addEventListener( 'input', function () {
 
-					glassMaterial.color.set( this.value );
+				// 	glassMaterial.color.set( this.value );
 
-				} );
+				// } );
 
 				// Car
 
@@ -159,18 +163,17 @@
 					);
 
 					// shadow
-					const mesh = new THREE.Mesh(
-						new THREE.PlaneGeometry( 0.655 * 4, 1.3 * 4 ),
-						new THREE.MeshBasicMaterial( {
-							map: shadow, blending: THREE.MultiplyBlending, toneMapped: false, transparent: true
-						} )
-					);
-					mesh.rotation.x = - Math.PI / 2;
-					mesh.renderOrder = 2;
-					carModel.add( mesh );
+					// const mesh = new THREE.Mesh(
+					// 	new THREE.PlaneGeometry( 0.655 * 4, 1.3 * 4 ),
+					// 	new THREE.MeshBasicMaterial( {
+					// 		map: shadow, blending: THREE.MultiplyBlending, toneMapped: false, transparent: true
+					// 	} )
+					// );
+					// mesh.rotation.x = - Math.PI / 2;
+					// mesh.renderOrder = 2;
+					// carModel.add( mesh );
 
 					scene.add( carModel );
-
 				} );
 
 			}

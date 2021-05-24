@@ -282,17 +282,17 @@
 
 			}
 
-			function animate() {
+			function animate()
+			{
 
 				requestAnimationFrame( animate );
 
 				const time = performance.now();
 
-				if ( controls.isLocked === true ) {
-
+				if ( controls.isLocked === true )
+				{
 					raycaster.ray.origin.copy( controls.getObject().position );
 					raycaster.ray.origin.y -= 10;
-
 					const intersections = raycaster.intersectObjects( objects );
 
 					const onObject = intersections.length > 0;
