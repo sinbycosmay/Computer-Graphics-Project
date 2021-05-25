@@ -1,4 +1,4 @@
-# Computer-Graphics-Project
+# Monster Attack: An Animation and Textures Project
 
 This assignment aims to create an interactive system using WebGL and Three.js 
 for rendering 3D animations which are capable of basic 3D translation and rotation as done in the previous assignment,
@@ -10,4 +10,14 @@ Earth is being attacked by monsters, and we are looking at the city of Bangalore
 people are still late for their jobs so they want to avoid the monsters and move on with their lives. 
 The Government has also set up a lighthouse in the middle of the road to keep an eye on the monsters while the army arrives to fight them.
 
-The demo and video can be found here: https://drive.google.com/drive/folders/1zfyG5rm7wo-lkH2tbs5GDtg4gJrHKbPQ?usp=sharing
+
+Contributors: Manan Bansal IMT2018039, Soham Kolhe IMT2018073, Tanmay Arora IMT2018078
+CS606 Computer Graphics 24 May 2021
+
+The code, Report and Demo video are available on the link below:
+https://drive.google.com/drive/folders/1zfyG5rm7wo-lkH2tbs5GDtg4gJrHKbPQ?usp=sharing
+
+In case of any issues with access/video playback, please reach out to us at:
+Manan.Bansal@iiitb.ac.in
+Soham.Kolhe@iiitb.ac.in 
+Tanmay.Arora@iiitb.ac.in
