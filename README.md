@@ -11,20 +11,23 @@ people are still late for their jobs so they want to avoid the monsters and move
 The Government has also set up a lighthouse in the middle of the road to keep an eye on the monsters while the army arrives to fight them.
 
 
-Contributors: Manan Bansal IMT2018039,
+# Contributors
 
-Soham Kolhe IMT2018073,
+Manan Bansal IMT2018039
+
+Soham Kolhe IMT2018073
 
 Tanmay Arora IMT2018078
 
-CS606 Computer Graphics 
-
-24 May 2021
+# Resources
 
 The code, Report and Demo video are available on the link below:
 https://drive.google.com/drive/folders/1zfyG5rm7wo-lkH2tbs5GDtg4gJrHKbPQ?usp=sharing
 
+# Contact
+
 In case of any issues with access/video playback, please reach out to us at:
+
 Manan.Bansal@iiitb.ac.in
 
 Soham.Kolhe@iiitb.ac.in 
